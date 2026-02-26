@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💖</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI', cursive, sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff9ec4,#ffd6ec,#ffeef7);
+    overflow:hidden;
+}
+
+.container{
+    text-align:center;
+    background:white;
+    padding:30px 25px;
+    border-radius:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    max-width:320px;
+    width:90%;
+    position:relative;
+}
+
+h1{
+    color:#ff4d88;
+    margin-bottom:15px;
+}
+
+p{
+    color:#555;
+    font-size:18px;
+}
+
+.buttons{
+    margin-top:25px;
+    position:relative;
+    height:120px;
+}
+
+button{
+    border:none;
+    padding:14px 26px;
+    font-size:18px;
+    border-radius:50px;
+    cursor:pointer;
+    transition:0.25s;
+    position:absolute;
+}
+
+#yesBtn{
+    background:#ff4d88;
+    color:white;
+    left:20%;
+}
+
+#yesBtn:hover{
+    transform:scale(1.1);
+}
+
+#noBtn{
+    background:#eee;
+    color:#444;
+    left:60%;
+}
+
+.message{
+    display:none;
+    margin-top:15px;
+    font-size:20px;
+    color:#ff2e6d;
+    animation:fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px)}
+    to{opacity:1; transform:translateY(0)}
+}
+
+/* floating hearts */
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation:float 6s linear infinite;
+    opacity:.7;
+}
+
+@keyframes float{
+    from{transform:translateY(0) rotate(0)}
+    to{transform:translateY(-120vh) rotate(360deg)}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Will you be my Valentine? 💕</h1>
+    <p>Choose wisely 😌</p>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 🙈</button>
+    </div>
+
+    <div class="message" id="msg">
+        Yaaay!!! 🥰<br><br>
+        Get ready love 💃🏽<br>
+        We’re going out for dinner on <b>February 14th</b> 🍽️✨
+    </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const msg = document.getElementById("msg");
+
+function moveButton(){
+    const container = document.querySelector(".buttons");
+    const rect = container.getBoundingClientRect();
+
+    const maxX = rect.width - noBtn.offsetWidth;
+    const maxY = rect.height - noBtn.offsetHeight;
+
+    const randX = Math.random() * maxX;
+    const randY = Math.random() * maxY;
+
+    noBtn.style.left = randX + "px";
+    noBtn.style.top = randY + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+yesBtn.addEventListener("click", ()=>{
+    msg.style.display="block";
+    createHearts();
+});
+
+function createHearts(){
+    for(let i=0;i<25;i++){
+        const heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="💖";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.animationDuration=(Math.random()*3+3)+"s";
+        heart.style.fontSize=(Math.random()*20+15)+"px";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),6000);
+    }
+}
+</script>
+
+</body>
+</html>
